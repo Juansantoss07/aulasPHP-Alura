@@ -31,3 +31,14 @@ $tocador->avancarMusica();
 $tocador->tocarMusica();
 $tocador->exibirMusicas();
 $tocador->exibirQuantidadeDeMusicas();
+$tocador->adicionarMusicaNoComecoDaLista("Congragulations");
+$tocador->exibirMusicas();
+$tocador->adicionarMusicaNoComecoDaLista("Stan");
+$tocador->exibirMusicas();
+$tocador->avancarMusica();
+$tocador->tocarMusica();
+
+$tocador->avancarMusica();
+$tocador->tocarMusica();
+$tocador->removerMusicaDoComecoDaLista();
+$tocador->exibirMusicas();

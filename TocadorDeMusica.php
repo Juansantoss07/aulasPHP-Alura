@@ -73,27 +73,40 @@ class TocadorDeMusica {
 		if($this->musicas->count() === 0){
 			echo "No momento, não existem músicas na lista.";
 		} else if ($this->musicas->count() === 1) {
-			echo "Você possui em sua lista, apenas " . $this->musicas->count() . "  música";
+			echo "Você possui em sua lista, apenas " . $this->musicas->count() . "  música" . "<br>";
 		} else {
-			echo "Você possui em sua lista o total de: " . $this->musicas->count() . "  música";	
+			echo "Você possui em sua lista o total de: " . $this->musicas->count() . "  música" . "<br>";	
 		}
 	}
 
 	public function adicionarMusicaNoComecoDaLista($musica){
 		// Nessa função estamos usando o método unshift para adicionar o item que passamos como argumento para o final da nossa lista ligada.
 		$this->musicas->unshift($musica);
+		echo "A música " . $musica . " foi adicionada a sua lista" . "<br>";
 	}
 
 	public function removerMusicaDoComecoDaLista(){
 		// Nessa função iremos usar o método shift() para removermos o primeiro item da lista. Nessa caso não passamos o argumento, pois não faz sentido,  já que o item sempre está lá. Fizemos uma condicional para verificar se temos item na lista através do método count, se não tiver ela exibi uma string dizendo que não tem, se tiver ela remove o item do começo, se tivermos só um item ele vai remover e exibir uma string dizendo que foi removido o  último item.
 		
 		if($this->musicas->count() === 0){
-			echo "Não existem músicas na lista para ser removida.";
+			echo "Não existem músicas na lista para ser removida." . "<br>";
 		} else if($this->musicas->count() === 1){
 			$this->musicas->shift();
-			echo "Sua única música foi removida, agora sua lista esta vazia";
+			echo "Sua única música foi removida, agora sua lista esta vazia" . "<br>";
 		} else {
 			$this->musicas->shift();
+		}
+	}
+
+	public function removerMusicaDoFinalDaLista(){
+		//A única diferença dessa função para a função anterior é que removemos o último item da lista ligadaao invvés do primeiro, usando o método pop().
+		if($this->musicas->count() === 0) {
+			echo "Não existem músicas na lista para ser removida." . "<br>";
+		} else if($this->musicas->count() === 1){
+			$this->musicas->pop();
+			echo "Sua única música foi removida, agora sua lista esta vazia" . "<br>";
+		} else {
+			$this->musicas->pop();
 		}
 	}
 }
