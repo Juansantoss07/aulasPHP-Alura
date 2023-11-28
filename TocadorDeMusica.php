@@ -83,4 +83,17 @@ class TocadorDeMusica {
 		// Nessa função estamos usando o método unshift para adicionar o item que passamos como argumento para o final da nossa lista ligada.
 		$this->musicas->unshift($musica);
 	}
+
+	public function removerMusicaDoComecoDaLista(){
+		// Nessa função iremos usar o método shift() para removermos o primeiro item da lista. Nessa caso não passamos o argumento, pois não faz sentido,  já que o item sempre está lá. Fizemos uma condicional para verificar se temos item na lista através do método count, se não tiver ela exibi uma string dizendo que não tem, se tiver ela remove o item do começo, se tivermos só um item ele vai remover e exibir uma string dizendo que foi removido o  último item.
+		
+		if($this->musicas->count() === 0){
+			echo "Não existem músicas na lista para ser removida.";
+		} else if($this->musicas->count() === 1){
+			$this->musicas->shift();
+			echo "Sua única música foi removida, agora sua lista esta vazia";
+		} else {
+			$this->musicas->shift();
+		}
+	}
 }
