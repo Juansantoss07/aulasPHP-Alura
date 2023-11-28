@@ -3,11 +3,15 @@
 class TocadorDeMusica {
 
 	private $musicas;
+	private $historico;
+	private $filaDeDownloads;
 
 	public function __construct(){
 		/* O objeto SplDoublyLinkedList() serve para criar uma lista ligada, ou seja, cada item vai estar ligado ao outro item da nossa array (da nossa lista). Isso é ótimo para quando queremos navegar entre os itens do array  */
 		$this->musicas = new SplDoublyLinkedList();
 		$this->musicas->rewind(); // Precisamos deixar a lista ligada sempre na posição inicial, então é de boa prática passar o método rewind() já no construtor da classe também.
+		$this->historico = new SplStack(); // Aqui estamos estanciando outro objeto collection, o SplStack() é uma pilha de dados, podemos usar como histórico, por exemplo, ela é do tipo LIFO (last in, first out). Ou seja, os últimos adicionados serão os primeiros a ter saida.
+		$this->filaDeDownloads = new SplQueue(); // Aqui estamos estanciando outro objeto collection, o SplQueue() é um outro tipo de lista que funciona de forma contrária da Stack,a Fila. Essa é do tipo FIFO (First in, first out). Ou seja, os últimos adicionados serão os últimos a ter saída também.
 	}
 
 	public function adicionarMusicas(SplFixedArray $musicas) {
@@ -32,6 +36,12 @@ class TocadorDeMusica {
 			echo "Tocando música: " . $this->musicas->current() . "<br>";
 		}
 		/* Nesse função tocarMusica(), primeiro estamos fazendo uma condição para verificar se nossa lista ligada não está vazia, para isso usamos o método count() do nosso objeto para retornar quantos itens existem na lista ligada, se for estritamente igual a 0, então vai exibir na tela a string de erro, se não, exibi a string tocando música concatenado com a nossa lista chamando o método current() para trazer o item (musica) atual. */
+
+		$this->historico->push($this->musicas->current()); // Aqui estamos adicionando ao final da pilha o item atual da nossa lista ligada. 
+	}
+
+	public function tocarUltimaMusicaTocada(){
+		echo "Tocando do histórico: " . $this->historico->pop() . "<br>";
 	}
 
 	public function adicionarMusica($musica){
@@ -107,6 +117,23 @@ class TocadorDeMusica {
 			echo "Sua única música foi removida, agora sua lista esta vazia" . "<br>";
 		} else {
 			$this->musicas->pop();
+		}
+	}
+
+	public function baixarMusicas(){
+
+		//Nessa função estamos verificando se a quantidade de itens na lista ligada $musicas, é maior que 0, se for ela itera sobre a lista e adiciona cada um dos itens na lista $listaDeDownloads, em seguida é feita a iteração nessa lista $filaDeDownloads e exibi que está baixando cada um desses itens, caso não seja maior que 0 é exibido uma string que diz que não tem itens.
+		if($this->musicas->count() > 0) {
+
+			for($this->musicas->rewind(); $this->musicas->valid(); $this->musicas->next()) {
+				$this->filaDeDownloads->push($this->musicas->current());
+			}
+
+			for($this->filaDeDownloads->rewind(); $this->filaDeDownloads->valid(); $this->filaDeDownloads->next()) {
+				echo "Baixando: " . $this->filaDeDownloads->current() . "..." . "<br>";
+			}
+		} else {
+			echo "Nenhuma música para baixar.";
 		}
 	}
 }
