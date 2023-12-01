@@ -38,6 +38,8 @@ class TocadorDeMusica {
 		/* Nesse função tocarMusica(), primeiro estamos fazendo uma condição para verificar se nossa lista ligada não está vazia, para isso usamos o método count() do nosso objeto para retornar quantos itens existem na lista ligada, se for estritamente igual a 0, então vai exibir na tela a string de erro, se não, exibi a string tocando música concatenado com a nossa lista chamando o método current() para trazer o item (musica) atual. */
 
 		$this->historico->push($this->musicas->current()); // Aqui estamos adicionando ao final da pilha o item atual da nossa lista ligada. 
+
+		$this->musicas->current()->tocar(); // Aqui, nosso item atual da lista esta chamando a função tocar() da nossa classe musica
 	}
 
 	public function tocarUltimaMusicaTocada(){
