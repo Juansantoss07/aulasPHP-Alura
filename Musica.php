@@ -29,5 +29,9 @@ class Musica{
         $this->vezesTocadas++;
     }
     
-
+    public function __toString()
+    {
+        // Agora nosso musica->current() nos retorna um objeto, pois haviamos refatorado ele. Para que continue retornando como string podemos usar o método do PHP __toString(), nessa função iremos retornar a propriedade $this->nome, que irá retornar uma string.
+        return $this->nome;
+    }
 }
