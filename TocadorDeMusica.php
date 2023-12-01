@@ -5,6 +5,7 @@ class TocadorDeMusica {
 	private $musicas;
 	private $historico;
 	private $filaDeDownloads;
+	private $ranking; 
 
 	public function __construct(){
 		/* O objeto SplDoublyLinkedList() serve para criar uma lista ligada, ou seja, cada item vai estar ligado ao outro item da nossa array (da nossa lista). Isso é ótimo para quando queremos navegar entre os itens do array  */
@@ -12,6 +13,8 @@ class TocadorDeMusica {
 		$this->musicas->rewind(); // Precisamos deixar a lista ligada sempre na posição inicial, então é de boa prática passar o método rewind() já no construtor da classe também.
 		$this->historico = new SplStack(); // Aqui estamos estanciando outro objeto collection, o SplStack() é uma pilha de dados, podemos usar como histórico, por exemplo, ela é do tipo LIFO (last in, first out). Ou seja, os últimos adicionados serão os primeiros a ter saida.
 		$this->filaDeDownloads = new SplQueue(); // Aqui estamos estanciando outro objeto collection, o SplQueue() é um outro tipo de lista que funciona de forma contrária da Stack,a Fila. Essa é do tipo FIFO (First in, first out). Ou seja, os últimos adicionados serão os últimos a ter saída também.
+
+		$this->ranking = new Ranking(); // Criamos uma propriedade $this->ranking e atribuimos a nossa classe Ranking() a ela, no construtor da nossa classe TocadorDeMusica().
 	}
 
 	public function adicionarMusicas(SplFixedArray $musicas) {
@@ -136,6 +139,19 @@ class TocadorDeMusica {
 			}
 		} else {
 			echo "Nenhuma música para baixar.";
+		}
+	}
+
+	public function exibiRanking()
+	{
+		// Nessa função, realizamos um loop foreach, para cada uma dos $this->musicas, armazenamos cada uma na variável $musica, e para cada uma executamos o méotodo do SplHeaper chamado insert(), e colocamos como argumento nossa $musica. Esse método vai inserir cada uma das músicas no nosso ranking. 
+		foreach($this->musicas as $musica){
+			$this->ranking->insert($musica);
+		}
+
+		// Nesse segundo foreach para cada musica do ranking é exibido o nome da musica e o número de vezes tocadas. 
+		foreach($this->ranking as $musica){
+			echo "Música: " . $musica->getNome() . "- " . $musica->vezesTocadas() . "<br>"; 
 		}
 	}
 }
