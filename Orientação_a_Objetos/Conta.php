@@ -38,9 +38,8 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
             return;
         }
         
-        $this->sacar($valorParaTransferir);
+        $this->sacar($valorParaTransferir); // Chamamos dessa forma, pois nesse caso o $this faz referência ao objeto que chamou o método.
         $contaDestino->depositar($valorParaTransferir);
 
-        // Note que não usamos o else aqui, é sempre recomendado o não uso dele, já que usando "return" a verficação para. 
     }
 }
