@@ -4,20 +4,17 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
 {
     // Iremos criar aqui as propriedades da nossa classe. 
 
+
+    private $titular;
     // Note que temos propriedades public e private, isso serve para decidirmos se nossa propriedade vai poder ser acessada fora do arquivo ou somente dentro do arquivo. No caso da propriedade $saldo por exemplo, não podemos deixa-la como pública para que não ocorra o risco de alteração no valor do saldo em outro lugar do código fora desse arquivo.
-    private string $cpfTitular;
-    private string $nomeTitular;
     private float $saldo; 
     // Todas essas prioridades são variáveis que chamamos de atributos da nossa classe
     private static $numeroDeContasCriadas = 0;
 
-    public function __construct(string $cpf, string $nome)
+    public function __construct(Titular $titular)
     {
-        $this->cpfTitular = $cpf;
-        $this->nomeTitular = $nome;
         $this->saldo = 0; // Aaui estamos atribuindo o valor 0 para saldo, assim sempre que criarmos uma conta nova, o saldo já virá como 0. 
-        $this->validaNomeTitular($nome);
-        
+        $this->titular = $titular;
 
         self::$numeroDeContasCriadas++;
         echo self::retornarNumeroDeContasCriadas();
@@ -66,27 +63,18 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
         return $this->saldo;
     }
 
-    public function retornarNomeTitular()
-    {
-        return $this->nomeTitular;
-    }
-
-    public function retornarCpfTitular()
-    {
-        return $this->cpfTitular;
-    }
-
-
-    private function validaNomeTitular($nome)
-    {
-        if(strlen($nome) <= 5){
-            echo "O nome precisa ter ao menos 6 caracteres.";
-            exit();
-        }
-    }
-
     private static function retornarNumeroDeContasCriadas()
     {
         return self::$numeroDeContasCriadas;
+    }
+
+    public function recuperaNomeTitular()
+    {
+        return $this->titular->retornarNome();
+    }
+
+    public function recuperaCpfTitular()
+    {
+        return $this->titular->retornarCpf();
     }
 }
