@@ -5,12 +5,19 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
     // Iremos criar aqui as propriedades da nossa classe. 
 
     // Note que temos propriedades public e private, isso serve para decidirmos se nossa propriedade vai poder ser acessada fora do arquivo ou somente dentro do arquivo. No caso da propriedade $saldo por exemplo, não podemos deixa-la como pública para que não ocorra o risco de alteração no valor do saldo em outro lugar do código fora desse arquivo.
-    public string $cpfTitular;
-    public string $nomeTitular;
+    private string $cpfTitular;
+    private string $nomeTitular;
     private float $saldo = 0; // Aaui estamos atribuindo o valor 0 para saldo, assim sempre que criarmos uma conta nova, o saldo já virá como 0. 
 
     // Todas essas prioridades são variáveis que chamamos de atributos da nossa classe
     
+
+    public function __construct(string $cpf, string $nome)
+    {
+        $this->cpfTitular = $cpf;
+        $this->nomeTitular = $nome;
+    }
+
     public function sacar(float $valor)
     {
         if($valor > $this->saldo){
@@ -41,5 +48,20 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
         $this->sacar($valorParaTransferir); // Chamamos dessa forma, pois nesse caso o $this faz referência ao objeto que chamou o método.
         $contaDestino->depositar($valorParaTransferir);
 
+    }
+
+    public function retornarSaldo()
+    {
+        return $this->saldo;
+    }
+
+    public function retornarNomeTitular()
+    {
+        return $this->nomeTitular;
+    }
+
+    public function retornarCpfTitular()
+    {
+        return $this->cpfTitular;
     }
 }
