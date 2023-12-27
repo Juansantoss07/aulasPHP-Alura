@@ -77,4 +77,9 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
     {
         return $this->titular->retornarCpf();
     }
+
+    public function retornaTitular():Titular
+    {
+        return $this->titular;
+    }
 }
