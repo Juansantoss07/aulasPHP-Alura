@@ -9,7 +9,6 @@ A diferença é simples, classe é a classe que montamos, com as prioridades (At
 
 $contaUm->cpfTitular = "343.156.383-49";
 $contaUm->nomeTitular = "Santos Cunha";
-$contaUm->saldo = 7324.86;
 
 var_dump($contaUm);
 
