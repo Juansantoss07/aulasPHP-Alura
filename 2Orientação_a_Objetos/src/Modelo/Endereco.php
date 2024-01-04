@@ -1,5 +1,8 @@
 <?php 
 
+namespace Alura\Banco\Modelo;
+
+
 class Endereco
 {
     private string $rua;

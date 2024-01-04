@@ -1,5 +1,8 @@
 <?php
 
+namespace Alura\Banco\Modelo;
+
+use Alura\Banco\Modelo\Cpf;
 class Pessoa
 {
     protected string $nome;

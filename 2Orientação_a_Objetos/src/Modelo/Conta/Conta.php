@@ -1,6 +1,9 @@
 <?php
 
-class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
+namespace Alura\Banco\Modelo\Conta;
+
+abstract class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
+// Note que ela é uma classe abstrata, pois usamos a palavra "abstract", precisamos disso para termos métodos abstratos também, métodos abstratos são métodos que só são criados mas não possuem uma lógica, ele deve ser usado obrigatóriamente nas classes filhas e finalizado na classe filha. 
 {
     // Iremos criar aqui as propriedades da nossa classe. 
 
@@ -10,6 +13,8 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
     private float $saldo; 
     // Todas essas prioridades são variáveis que chamamos de atributos da nossa classe
     private static $numeroDeContasCriadas = 0;
+
+    
 
     public function __construct(Titular $titular)
     {
@@ -28,10 +33,14 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
 
     public function sacar(float $valor)
     {
-        if($valor > $this->saldo){
+
+        $tarifa = $valor * $this->percentualTarifa();
+        $valorComTaxa = $valor + $tarifa;
+
+        if($valorComTaxa > $this->saldo){
             echo "Você não possui saldo sulficiente, seu saldo é de R$" . $this->saldo;
         } else {
-            $this->saldo -= $valor;
+            $this->saldo -= $valorComTaxa;
             echo "O valor de R$" . $valor . " foi sacado de sua conta <br>. Seu saldo atual é R$" . $this->saldo; 
         }
     }
@@ -68,18 +77,11 @@ class Conta // Aqui criamos uma classe, uma classe pode ser um tipo também.
         return self::$numeroDeContasCriadas;
     }
 
-    public function recuperaNomeTitular()
-    {
-        return $this->titular->retornarNome();
-    }
-
-    public function recuperaCpfTitular()
-    {
-        return $this->titular->retornarCpf();
-    }
-
     public function retornaTitular():Titular
     {
         return $this->titular;
     }
+
+    abstract protected function percentualTarifa();
+    // Aqui criamos um método abstrato, ou seja, ele é um método que devemos implementar em todas as classes que extendem essa, e devemos criar a lógica dela lá.
 }
